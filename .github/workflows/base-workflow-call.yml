@@ -39,7 +39,7 @@ jobs:
         run: |
           echo "🐧 GitHub Action running on ${{ runner.os }}"
           echo "${{ secrets.SALESFORCE_JWT_SECRET_KEY }}" > server.key
-          sfdx auth:jwt:grant --jwtkeyfile=server.key --username=${{ secrets.SALESFORCE_DEVHUB_USERNAME }} --clientid=${{ secrets.SALESFORCE_CONSUMER_KEY }} --setdefaultdevhubusername
+          sfdx auth:jwt:grant --jwtkeyfile=server.key --username=${{ secrets.SALESFORCE_DEVHUB_USERNAME }} --clientid=${{ secrets.SALESFORCE_CONSUMER_KEY }} --setdefaultusername
       - name: add library
         run: |
           yarn && yarn build

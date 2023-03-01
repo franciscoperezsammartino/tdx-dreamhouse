@@ -159,7 +159,7 @@
         <label>var_custom Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>plural</pluralLabel>
+    <pluralLabel>change var</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

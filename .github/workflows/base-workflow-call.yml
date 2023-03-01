@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: print event
         run: |
-          echo "event payload ${{ github.event }}"
+          echo "event payload $github.event"
 
       - name: Checkout repos
         uses: actions/checkout@master

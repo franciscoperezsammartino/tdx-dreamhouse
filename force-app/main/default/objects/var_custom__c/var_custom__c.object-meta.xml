@@ -159,7 +159,7 @@
         <label>var_custom Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>CHANGIE -PLEASIE</pluralLabel>
+    <pluralLabel>PLEASURe</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

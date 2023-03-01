@@ -18,9 +18,10 @@ jobs:
   install-cli-plugin:
     runs-on: ubuntu-latest
     steps:
-      - name: print event
-        run: |
-          echo "event payload $github.event"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
       - name: Checkout repos
         uses: actions/checkout@master

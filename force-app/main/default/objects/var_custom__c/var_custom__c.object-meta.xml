@@ -159,7 +159,7 @@
         <label>var_custom Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>JUJU NOW -2</pluralLabel>
+    <pluralLabel>NOW WHAT</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

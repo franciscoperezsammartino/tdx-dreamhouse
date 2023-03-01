@@ -1,0 +1,12 @@
+name: Commit
+on:
+  push:
+    branches:
+      - 'integration'
+
+jobs:
+  verify-and-deploy:
+    uses: ./.github/workflows/base-workflow-call.yml
+    with:
+      checkout-ref: ${{ github.event.push.ref }}
+    secrets: inherit

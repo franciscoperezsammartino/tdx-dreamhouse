@@ -1,0 +1,13 @@
+name: Commit
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  verify-and-deploy:
+    if: github.event.pull_request.merged == true
+    uses: ./.github/workflows/base-workflow-call.yml
+    with:
+      checkout-ref: ${{ github.event.push.ref }}
+    secrets: inherit

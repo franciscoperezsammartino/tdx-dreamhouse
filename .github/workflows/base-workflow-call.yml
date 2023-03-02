@@ -1,0 +1,55 @@
+name: Initial sync and validation
+
+on:
+  workflow_call:
+    inputs:
+      checkout-ref:
+        required: true
+        type: string
+    secrets:
+      SALESFORCE_JWT_SECRET_KEY:
+        required: true
+      SALESFORCE_CONSUMER_KEY:
+        required: true
+      SALESFORCE_DEVHUB_USERNAME:
+        required: true
+
+jobs:
+  install-cli-plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repos
+        uses: actions/checkout@master
+        with:
+          repository: 'salesforcecli/plugin-devops-center'
+      - name: Use Node.js 16.12
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.12'
+          cache: 'npm'
+      - name: install sfdx cli
+        run: |
+          npm install sfdx-cli --global
+      - name: Authenticate into DevOps Center Org
+        run: |
+          echo "🐧 GitHub Action running on ${{ runner.os }}"
+          echo "${{ secrets.SALESFORCE_JWT_SECRET_KEY }}" > server.key
+          sfdx auth:jwt:grant --jwtkeyfile=server.key --username=${{ secrets.SALESFORCE_DEVHUB_USERNAME }} --clientid=${{ secrets.SALESFORCE_CONSUMER_KEY }} --setdefaultusername
+      - name: insert event
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github.event) }}
+        run: |
+        
+          sfdx force:data:record:get -s sf_devops__Repository__c -w "Name=${{github.repository}}"
+          sfdx force:data:record:create -s sf_devops__Vcs_Event__c -v "sf_devops__Event_Id__c=${{github.run_id}} sf_devops__Repository__c=a0G520000068IzsEAE  sf_devops__Event_Date__c='2023-03-01T17:51:24.000+0000' sf_devops__Target_Branch__c=${{github.base_ref}} sf_devops__Source_Branch__c=${{github.head_ref}} sf_devops__Payload__c='{\"type\":\"PullRequestEvent\",\"payload\":{\"refType\":null,\"ref\":null,\"pullRequest\":{\"user\":{\"name\":null,\"login\":\"franciscoperezsammartino\",\"id\":\"83368092\"},\"title\":\"myApex3\",\"state\":\"closed\",\"remoteReference\":\"${{github.event.pull_request.number}}\",\"merged_at\":\"2023-02-27T19:53:30.000Z\",\"merged\":true,\"mergeable_state\":\"unknown\",\"mergeable\":null,\"merge_commit_sha\":\"${{github.event.pull_request.merge_commit_sha}}\",\"id\":\"1254293181\",\"htmlUrl\":\"https://github.com/kfidelak94/Test1_0225a/pull/8\",\"head\":{\"ref\":\"WI-000003\"},\"draft\":false,\"body\":null,\"base\":{\"ref\":\"integration\"}},\"head\":null,\"commits\":null,\"before\":null,\"action\":\"closed\"},\"id\":\"27332370112\",\"createdAt\":\"2023-02-25T19:53:31.000Z\"}'"
+      - name: add library
+        run: |
+          yarn && yarn build
+          sfdx plugins link .
+          sfdx plugins
+      
+
+#      - name: run deploy command # run the deploy pipeline command
+#       run: |
+#          for i in {1..20}; do sfdx deploy pipeline --devops-center-username=${{ secrets.SALESFORCE_DEVHUB_USERNAME }} --branch-name=int --devops-center-project-name=0102 && break || sleep 15; done
+  

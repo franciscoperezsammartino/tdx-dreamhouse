@@ -159,7 +159,7 @@
         <label>var_custom Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>WHAT else - else</pluralLabel>
+    <pluralLabel>barista</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

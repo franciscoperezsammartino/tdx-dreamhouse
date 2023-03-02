@@ -159,7 +159,7 @@
         <label>var_custom Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>CAN THIS BE</pluralLabel>
+    <pluralLabel>NUPIs</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

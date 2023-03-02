@@ -40,7 +40,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github.event) }}
         run: |
           sfdx force:data:record:get -s sf_devops__Repository__c -w "Name=${{github.repository}}"
-          sfdx force:data:record:create -s sf_devops__Vcs_Event__c -v " sf_devops__Event_Id__c=${{github.run_id}} sf_devops__Repository__c=a0G520000068IzsEAE  sf_devops__Event_Date__c='2023-03-01T17:51:24.000+0000' sf_devops__Target_Branch__c=${{github.base_ref}} sf_devops__Source_Branch__c=${{github.head_ref}} sf_devops__Payload__c=$GITHUB_CONTEXT"
+          sfdx force:data:record:create -s sf_devops__Vcs_Event__c -v " sf_devops__Event_Id__c=${{github.run_id}} sf_devops__Repository__c=a0G520000068IzsEAE  sf_devops__Event_Date__c='2023-03-01T17:51:24.000+0000' sf_devops__Target_Branch__c=${{github.base_ref}} sf_devops__Source_Branch__c=${{github.head_ref}} sf_devops__Payload__c='$GITHUB_CONTEXT'"
       - name: add library
         run: |
           yarn && yarn build
